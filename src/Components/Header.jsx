@@ -8,8 +8,15 @@ export default function Header() {
           <li>
             <img width="150px" alt="Business Trips" src="/images/logo.png" />
           </li>
+          <li>
+            <button onClick={redirectToMyTrips}>My trips</button>
+          </li>
         </ul>
       </nav>
     </header>
   );
+}
+
+function redirectToMyTrips() {
+
 }
