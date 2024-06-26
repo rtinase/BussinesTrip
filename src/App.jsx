@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import "./App.css";
 import Footer from "./Footer";
 import Header from "./Components/Header";
@@ -61,6 +61,20 @@ const trips = [
 const selectedTrips = [];
 
 export default function App() {
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+
+  const showSnackbar = () => {
+    setSnackbarVisible(true);
+    setTimeout(() => {
+      setSnackbarVisible(false);
+    }, 2000);
+  };
+
+  function addTripToSelected(trip) {
+    selectedTrips.push(trip);
+    showSnackbar();
+  }
+
   function renderTrip(t) {
     return (
       <div className="product" key={t.id}>
@@ -87,10 +101,6 @@ export default function App() {
     );
   }
 
-  function addTripToSelected(trip) {
-    selectedTrips.push(trip);
-  }
-
   return (
     <>
       <div>
@@ -107,8 +117,13 @@ export default function App() {
           </section>
           <section id="products">{trips.map(renderTrip)}</section>
         </main>
+        <div id="snackbar" className={`snackbar ${snackbarVisible ? 'show' : ''}`}>
+          Trip added to your list!
+        </div>
       </div>
       <Footer />
     </>
   );
 }
+
+

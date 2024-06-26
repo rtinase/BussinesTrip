@@ -25,8 +25,8 @@ export default function MyTrips() {
                         </div>
                         <p>{t.description}</p>
                         <div>
-                            <button type="button" disabled>
-                                Add to Triplist
+                            <button type="button">
+                                Delete from list
                             </button>
                         </div>
                     </figcaption>

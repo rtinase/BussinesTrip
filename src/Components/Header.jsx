@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./Header.css"
 
 export default function Header({ myTripsFromApp }) {
   const navigate = useNavigate();
@@ -10,16 +11,8 @@ export default function Header({ myTripsFromApp }) {
 
   return (
     <header>
-      <nav>
-        <ul>
-          <li>
-            <img width="150px" alt="Business Trips" src="/images/logo.png" />
-          </li>
-          <li>
-            <button onClick={redirectToMyTrips}>My trips</button>
-          </li>
-        </ul>
-      </nav>
+      <img width="150px" alt="Business Trips" src="/images/logo.png" />
+      <button onClick={redirectToMyTrips}>My trips</button>
     </header>
   );
 }
