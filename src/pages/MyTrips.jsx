@@ -5,16 +5,20 @@ import axios from "axios";
 export default function MyTrips() {
     const navigate = useNavigate();
     const location = useLocation();
-    const initialTrips = location.state?.myTrips || [];
-    const [trips, setTrips] = useState(initialTrips);
+    const [trips, setTrips] = useState([]);
+
+    const deleteTripFromSelected = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3001/trips/${id}`);
+            const newTrips = trips.filter(trip => trip.id !== id);
+            setTrips(newTrips);
+        } catch (error) {
+            console.error("Error deleting trip:", error);
+        }
+    };
 
     function returnToHome() {
-        navigate("/", { state: { myTrips: trips } });
-    }
-
-    const deleteTripFromSelected = (id) => {
-        const newTrips = trips.filter(trip => trip.id !== id);
-        setTrips(newTrips);
+        navigate("/");
     }
 
     function renderTrip(t) {
@@ -27,9 +31,7 @@ export default function MyTrips() {
                     <figcaption>
                         <a href="#">{t.title}</a>
                         <div>
-                            <span>
-                                {t.startTrip}
-                            </span>
+                            <span>{t.startTrip}</span>
                         </div>
                         <p>{t.description}</p>
                         <div>
