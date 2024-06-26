@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 export default function MyTrips() {
     const navigate = useNavigate();
     const location = useLocation();
-    const trips = location.state?.myTrips || [];
+    const initialTrips = location.state?.myTrips || [];
+    const [trips, setTrips] = useState(initialTrips);
+
     function returnToHome() {
-        navigate("/");
+        navigate("/", { state: { myTrips: trips } });
+    }
+
+    const deleteTripFromSelected = (id) => {
+        const newTrips = trips.filter(trip => trip.id !== id);
+        setTrips(newTrips);
     }
 
     function renderTrip(t) {
@@ -14,18 +22,18 @@ export default function MyTrips() {
             <div className="product" key={t.id}>
                 <figure>
                     <div>
-                        <img src={"images/items/" + t.id + ".jpg"} alt="name " />
+                        <img src={"images/items/" + t.id + ".jpg"} alt="name" />
                     </div>
                     <figcaption>
-                        <a href="#. . . ">{t.title}</a>
+                        <a href="#">{t.title}</a>
                         <div>
                             <span>
-                                {t.startTrip[2] + "-" + t.startTrip[1] + "-" + t.startTrip[0]}
+                                {t.startTrip}
                             </span>
                         </div>
                         <p>{t.description}</p>
                         <div>
-                            <button type="button">
+                            <button type="button" onClick={() => deleteTripFromSelected(t.id)}>
                                 Delete from list
                             </button>
                         </div>
@@ -42,6 +50,4 @@ export default function MyTrips() {
             <section id="products">{trips.map(renderTrip)}</section>
         </div>
     );
-
-
-};
+}

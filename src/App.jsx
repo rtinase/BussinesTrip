@@ -13,8 +13,8 @@ export default function App() {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await axios.get("./trips.json");
-        setTrips(response.data);
+        const response = await axios.get("./trips2.json");
+        setTrips(response.data.trips);
       } catch (error) {
         console.error("Error fetching trips:", error);
       }
