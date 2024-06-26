@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function MyTrips() {
     const navigate = useNavigate();
-    const location = useLocation();
     const [trips, setTrips] = useState([]);
+
+    useEffect(() => {
+        const fetchTrips = async () => {
+            try {
+                const response = await axios.get("http://localhost:3001/trips/all");
+                setTrips(response.data.selectedTrips);
+            } catch (error) {
+                console.error("Error fetching trips:", error);
+            }
+        };
+
+        fetchTrips();
+    }, []);
+
 
     const deleteTripFromSelected = async (id) => {
         try {

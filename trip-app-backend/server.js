@@ -7,13 +7,24 @@ const cors = require('cors');
 const app = express();
 const PORT = 3001;
 const tripsFilePath = path.join(__dirname, './trips.json');
+const selectedTripsFilePath = path.join(__dirname, './selectedTrips.json');
 
 app.use(bodyParser.json());
 app.use(cors());
 
 // Read trips
-app.get('/trips/all', (req, res) => {
+app.get('/trips', (req, res) => {
     fs.readFile(tripsFilePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send('Error reading trips file');
+        }
+        res.send(JSON.parse(data));
+    });
+});
+
+// Read selected trips
+app.get('/selected-trips', (req, res) => {
+    fs.readFile(selectedTripsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading trips file');
         }
@@ -41,16 +52,16 @@ app.delete('/trips/:id', (req, res) => {
 });
 
 // Add a trip (for completeness)
-app.post('/trips', (req, res) => {
+app.post('/selected-trips/add', (req, res) => {
     const newTrip = req.body;
-    fs.readFile(tripsFilePath, 'utf8', (err, data) => {
+    fs.readFile(selectedTripsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading trips file');
         }
-        const trips = JSON.parse(data).trips;
-        trips.push(newTrip);
+        const selectedTrips = JSON.parse(data).selectedTrips;
+        selectedTrips.push(newTrip);
 
-        fs.writeFile(tripsFilePath, JSON.stringify({ trips }), err => {
+        fs.writeFile(selectedTripsFilePath, JSON.stringify({ selectedTrips }), err => {
             if (err) {
                 return res.status(500).send('Error writing to trips file');
             }
@@ -60,7 +71,7 @@ app.post('/trips', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}/trips`);
+    console.log(`Server is running on http://localhost:${PORT}/trips and on http://localhost:${PORT}/selected-trips`);
 });
 
 

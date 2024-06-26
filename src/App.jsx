@@ -13,7 +13,7 @@ export default function App() {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/trips/all");
+        const response = await axios.get("http://localhost:3001/trips");
         setTrips(response.data.trips);
       } catch (error) {
         console.error("Error fetching trips:", error);
@@ -32,8 +32,22 @@ export default function App() {
   };
 
   function addTripToSelected(trip) {
-    selectedTrips.push(trip);
-    showSnackbar();
+    const tripData = {
+      title: trip.title,
+      description: trip.description,
+      startTrip: trip.startTrip,
+      endTrip: trip.endTrip
+    };
+    axios.post('http://localhost:3001/selected-trips/add', tripData)
+      .then(response => {
+        console.log('Trip added successfully:', response.data);
+        // Optionally, update state or do something else on success
+      })
+      .catch(error => {
+        console.error('Error adding trip:', error);
+        // Handle errors if necessary
+      });
+
   }
 
   function renderTrip(t) {
