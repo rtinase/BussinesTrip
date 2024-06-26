@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Read trips
-app.get('/trips', (req, res) => {
+app.get('/trips/all', (req, res) => {
     fs.readFile(tripsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading trips file');
