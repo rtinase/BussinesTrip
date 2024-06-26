@@ -88,7 +88,7 @@ export default function App() {
   return (
     <>
       <div>
-        <Header />
+        <Header myTripsFromApp={trips} />
         <main>
           <section id="filters">
             <label htmlFor="month">Filter by Month:</label>{" "}

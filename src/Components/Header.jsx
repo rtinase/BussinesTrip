@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ myTripsFromApp }) {
   const navigate = useNavigate();
 
   function redirectToMyTrips() {
-    navigate("/mytrips");
+    navigate("/mytrips", { state: { myTrips: myTripsFromApp } });
   }
 
   return (
