@@ -58,6 +58,8 @@ const trips = [
   },
 ];
 
+const selectedTrips = [];
+
 export default function App() {
   function renderTrip(t) {
     return (
@@ -75,7 +77,7 @@ export default function App() {
             </div>
             <p>{t.description}</p>
             <div>
-              <button type="button" disabled>
+              <button type="button" onClick={() => addTripToSelected(t)}>
                 Add to Triplist
               </button>
             </div>
@@ -85,10 +87,14 @@ export default function App() {
     );
   }
 
+  function addTripToSelected(trip) {
+    selectedTrips.push(trip);
+  }
+
   return (
     <>
       <div>
-        <Header myTripsFromApp={trips} />
+        <Header myTripsFromApp={selectedTrips} />
         <main>
           <section id="filters">
             <label htmlFor="month">Filter by Month:</label>{" "}
