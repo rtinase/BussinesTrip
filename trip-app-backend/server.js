@@ -2,12 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const PORT = 3001;
 const tripsFilePath = path.join(__dirname, './trips.json');
 
 app.use(bodyParser.json());
+app.use(cors());
 
 // Read trips
 app.get('/trips', (req, res) => {
