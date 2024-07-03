@@ -22,7 +22,7 @@ export const deleteTrip = async (id, trips) => {
 
 export const deleteAllMyTrips = async () => {
     try {
-        await axios.delete(`http://localhost:3001/sele`);
+        await axios.delete(`http://localhost:3001/my-trips/all`);
     } catch (error) {
         console.error("Error deleting all trips:", error);
     }

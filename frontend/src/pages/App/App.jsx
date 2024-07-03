@@ -4,12 +4,12 @@ import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import axios from "axios";
 
+
 const selectedTrips = [];
 
 export default function App() {
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [allTrips, setTrips] = useState([]);
-  const [amountSelectedTrips, setAmountSelectedTrips] = useState(0);
 
 
   useEffect(() => {
@@ -36,18 +36,18 @@ export default function App() {
   async function getAmountOfSelectedTrips() {
     try {
       const response = await axios.get("http://localhost:3001/my-trips/amount");
-      console.log("Response data:", response.data); // Debugging: log the response
+      console.log("Response data:", response.data); 
       const amount = response.data.amount;
-      console.log("Parsed amount:", amount); // Debugging: log the parsed amount
-      setAmountSelectedTrips(amount);
+      console.log("Parsed amount:", amount); 
+      return amount;
     } catch (error) {
       console.error("Error fetching trips:", error);
     }
   }
 
-  function addTripToSelected(trip) {
+  function addTripToSelected(trip, amountOfMyTrips) {
     const tripData = {
-      id: amountSelectedTrips + 1,
+      id: amountOfMyTrips + 1,
       title: trip.title,
       description: trip.description,
       startTrip: trip.startTrip,
@@ -65,10 +65,10 @@ export default function App() {
 
   }
 
-  function handleAddTripToSelected(trip) {
-    getAmountOfSelectedTrips();
-    console.log(amountSelectedTrips);
-    addTripToSelected(trip);
+  async function handleAddTripToSelected(trip) {
+    const amountOfMyTrips = await getAmountOfSelectedTrips();
+    console.log(amountOfMyTrips);
+    addTripToSelected(trip, amountOfMyTrips);
   }
 
   function renderTrip(t) {
@@ -80,6 +80,9 @@ export default function App() {
           </div>
           <figcaption>
             <a href="#. . . ">{t.title}</a>
+            <div>
+              <span>ID: {t.id}</span>
+            </div>
             <div>
               <span>
                 {t.startTrip[2] + "-" + t.startTrip[1] + "-" + t.startTrip[0]}
@@ -111,7 +114,7 @@ export default function App() {
               <option value="3">March</option>
             </select>
           </section>
-          <section id="products">{allTrips.map(renderTrip)}</section>
+          <section id="products">{allTrips.map(trip => renderTrip(trip))}</section>
         </main>
         <div id="snackbar" className={`snackbar ${snackbarVisible ? 'show' : ''}`}>
           Trip added to your list!

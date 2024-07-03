@@ -53,7 +53,7 @@ app.get('/my-trips/amount', (req, res) => {
 });
 
 
-app.delete('/my-trips/:id', (req, res) => {
+app.delete('/my-trips/trip/:id', (req, res) => {
     const tripId = parseInt(req.params.id);
     fs.readFile(AllTripsFilePath, 'utf8', (err, data) => {
         if (err) {
@@ -68,6 +68,29 @@ app.delete('/my-trips/:id', (req, res) => {
             }
             res.send({ success: true });
         });
+    });
+});
+
+app.delete('/my-trips/all', (req, res) => {
+    fs.readFile(MyTripsFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading myTrips file:', err);
+            return res.status(500).send('Error reading myTrips file');
+        }
+
+        try {
+            const emptyTrips = { myTrips: [] };
+            fs.writeFile(MyTripsFilePath, JSON.stringify(emptyTrips, null, 2), (writeErr) => {
+                if (writeErr) {
+                    console.error('Error writing to trips file:', writeErr);
+                    return res.status(500).send('Error writing to trips file');
+                }
+                res.send({ success: true, message: 'All trips have been deleted.' });
+            });
+        } catch (parseError) {
+            console.error('Error parsing trips file:', parseError);
+            res.status(500).send('Error parsing trips file');
+        }
     });
 });
 
