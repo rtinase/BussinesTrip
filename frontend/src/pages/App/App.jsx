@@ -1,25 +1,26 @@
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import Footer from "./Footer";
-import Header from "./Components/Header";
+import Footer from "../../Components/Footer";
+import Header from "../../Components/Header";
 import axios from "axios";
 
 const selectedTrips = [];
 
 export default function App() {
   const [snackbarVisible, setSnackbarVisible] = useState(false);
-  const [trips, setTrips] = useState([]);
+  const [allTrips, setTrips] = useState([]);
+  const [amountSelectedTrips, setAmountSelectedTrips] = useState(0);
+
 
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/trips");
-        setTrips(response.data.trips);
+        const response = await axios.get("http://localhost:3001/all-trips");
+        setTrips(response.data.allTrips);
       } catch (error) {
         console.error("Error fetching trips:", error);
       }
     };
-
     fetchTrips();
   }, []);
 
@@ -31,14 +32,28 @@ export default function App() {
     }, 2000);
   };
 
+
+  async function getAmountOfSelectedTrips() {
+    try {
+      const response = await axios.get("http://localhost:3001/my-trips/amount");
+      console.log("Response data:", response.data); // Debugging: log the response
+      const amount = response.data.amount;
+      console.log("Parsed amount:", amount); // Debugging: log the parsed amount
+      setAmountSelectedTrips(amount);
+    } catch (error) {
+      console.error("Error fetching trips:", error);
+    }
+  }
+
   function addTripToSelected(trip) {
     const tripData = {
+      id: amountSelectedTrips + 1,
       title: trip.title,
       description: trip.description,
       startTrip: trip.startTrip,
       endTrip: trip.endTrip
     };
-    axios.post('http://localhost:3001/selected-trips/add', tripData)
+    axios.post('http://localhost:3001/my-trips/add', tripData)
       .then(response => {
         console.log('Trip added successfully:', response.data);
         // Optionally, update state or do something else on success
@@ -48,6 +63,12 @@ export default function App() {
         // Handle errors if necessary
       });
 
+  }
+
+  function handleAddTripToSelected(trip) {
+    getAmountOfSelectedTrips();
+    console.log(amountSelectedTrips);
+    addTripToSelected(trip);
   }
 
   function renderTrip(t) {
@@ -66,7 +87,7 @@ export default function App() {
             </div>
             <p>{t.description}</p>
             <div>
-              <button type="button" onClick={() => addTripToSelected(t)}>
+              <button type="button" onClick={() => handleAddTripToSelected(t)}>
                 Add to Triplist
               </button>
             </div>
@@ -90,7 +111,7 @@ export default function App() {
               <option value="3">March</option>
             </select>
           </section>
-          <section id="products">{trips.map(renderTrip)}</section>
+          <section id="products">{allTrips.map(renderTrip)}</section>
         </main>
         <div id="snackbar" className={`snackbar ${snackbarVisible ? 'show' : ''}`}>
           Trip added to your list!

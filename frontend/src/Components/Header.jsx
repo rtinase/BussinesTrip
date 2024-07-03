@@ -6,7 +6,7 @@ export default function Header({ myTripsFromApp }) {
   const navigate = useNavigate();
 
   function redirectToMyTrips() {
-    navigate("/mytrips", { state: { myTrips: myTripsFromApp } });
+    navigate("/my-trips", { state: { myTrips: myTripsFromApp } });
   }
 
   return (

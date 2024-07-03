@@ -1,5 +1,5 @@
 {
-    "trips": [
+    "allTrips": [
         {
             "id": 1,
             "title": "BT01",

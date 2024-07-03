@@ -6,43 +6,63 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 3001;
-const tripsFilePath = path.join(__dirname, './trips.json');
-const selectedTripsFilePath = path.join(__dirname, './selectedTrips.json');
+const AllTripsFilePath = path.join(__dirname, './AllTrips.json');
+const MyTripsFilePath = path.join(__dirname, './MyTrips.json');
 
 app.use(bodyParser.json());
 app.use(cors());
 
-// Read trips
-app.get('/trips', (req, res) => {
-    fs.readFile(tripsFilePath, 'utf8', (err, data) => {
+app.get('/all-trips', (req, res) => {
+    fs.readFile(AllTripsFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.log('Error reading trips file');
+            return res.status(500).send('Error reading trips file');
+        }
+        res.send(JSON.parse(data));
+        console.log('GET request /all-trips');
+    });
+});
+
+app.get('/my-trips', (req, res) => {
+    fs.readFile(MyTripsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading trips file');
         }
         res.send(JSON.parse(data));
+        console.log("GET request to /my-trips");
     });
 });
 
-// Read selected trips
-app.get('/selected-trips', (req, res) => {
-    fs.readFile(selectedTripsFilePath, 'utf8', (err, data) => {
+app.get('/my-trips/amount', (req, res) => {
+    fs.readFile(MyTripsFilePath, 'utf8', (err, data) => {
         if (err) {
+            console.error('Error reading trips file:', err);
             return res.status(500).send('Error reading trips file');
         }
-        res.send(JSON.parse(data));
+
+        try {
+            const myTrips = JSON.parse(data).myTrips;
+            const amount = myTrips.length;
+            console.log(`GET request /my-trips/amount. The number is ${String(amount)} and type is ${typeof (amount)}`)
+            res.send({ amount: amount });
+        } catch (parseError) {
+            console.error('Error parsing selected trips file:', parseError);
+            res.status(500).send('Error parsing trips file');
+        }
     });
 });
 
-// Delete a trip
-app.delete('/trips/:id', (req, res) => {
+
+app.delete('/my-trips/:id', (req, res) => {
     const tripId = parseInt(req.params.id);
-    fs.readFile(tripsFilePath, 'utf8', (err, data) => {
+    fs.readFile(AllTripsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading trips file');
         }
-        const trips = JSON.parse(data).trips;
-        const newTrips = trips.filter(trip => trip.id !== tripId);
+        const myTrips = JSON.parse(data).myTrips;
+        const newTrips = myTrips.filter(trip => trip.id !== tripId);
 
-        fs.writeFile(tripsFilePath, JSON.stringify({ trips: newTrips }), err => {
+        fs.writeFile(AllTripsFilePath, JSON.stringify({ trips: newTrips }), err => {
             if (err) {
                 return res.status(500).send('Error writing to trips file');
             }
@@ -52,16 +72,16 @@ app.delete('/trips/:id', (req, res) => {
 });
 
 // Add a trip (for completeness)
-app.post('/selected-trips/add', (req, res) => {
+app.post('/my-trips/add', (req, res) => {
     const newTrip = req.body;
-    fs.readFile(selectedTripsFilePath, 'utf8', (err, data) => {
+    fs.readFile(MyTripsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading trips file');
         }
-        const selectedTrips = JSON.parse(data).selectedTrips;
-        selectedTrips.push(newTrip);
+        const myTrips = JSON.parse(data).myTrips;
+        myTrips.push(newTrip);
 
-        fs.writeFile(selectedTripsFilePath, JSON.stringify({ selectedTrips }), err => {
+        fs.writeFile(MyTripsFilePath, JSON.stringify({ myTrips }), err => {
             if (err) {
                 return res.status(500).send('Error writing to trips file');
             }
