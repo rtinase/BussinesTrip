@@ -48,6 +48,7 @@ export default function App() {
   function addTripToSelected(trip, amountOfMyTrips) {
     const tripData = {
       id: amountOfMyTrips + 1,
+      imageId: trip.id,
       title: trip.title,
       description: trip.description,
       startTrip: trip.startTrip,

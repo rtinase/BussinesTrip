@@ -5,7 +5,7 @@ const Trip = ({ trip, onDeleteTrip }) => {
         <div className="product">
             <figure>
                 <div>
-                    <img src={"images/items/" + trip.id + ".jpg"} alt="name" />
+                    <img src={"images/items/" + trip.imageId + ".jpg"} alt="name" />
                 </div>
                 <figcaption>
                     <div>
