@@ -55,14 +55,14 @@ app.get('/my-trips/amount', (req, res) => {
 
 app.delete('/my-trips/trip/:id', (req, res) => {
     const tripId = parseInt(req.params.id);
-    fs.readFile(AllTripsFilePath, 'utf8', (err, data) => {
+    fs.readFile(MyTripsFilePath, 'utf8', (err, data) => {
         if (err) {
             return res.status(500).send('Error reading trips file');
         }
         const myTrips = JSON.parse(data).myTrips;
         const newTrips = myTrips.filter(trip => trip.id !== tripId);
 
-        fs.writeFile(AllTripsFilePath, JSON.stringify({ trips: newTrips }), err => {
+        fs.writeFile(MyTripsFilePath, JSON.stringify({ myTrips: newTrips }), err => {
             if (err) {
                 return res.status(500).send('Error writing to trips file');
             }
