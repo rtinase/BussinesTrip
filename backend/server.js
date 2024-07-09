@@ -94,7 +94,6 @@ app.delete('/my-trips/all', (req, res) => {
     });
 });
 
-// Add a trip (for completeness)
 app.post('/my-trips/add', (req, res) => {
     const newTrip = req.body;
     fs.readFile(MyTripsFilePath, 'utf8', (err, data) => {

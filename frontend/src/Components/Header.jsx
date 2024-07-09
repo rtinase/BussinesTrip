@@ -10,10 +10,12 @@ export default function Header({ myTripsFromApp }) {
   }
 
   return (
-    <header>
-      <img width="150px" alt="Business Trips" src="/images/logo.png" />
-      <button onClick={redirectToMyTrips}>My trips</button>
-    </header>
+      <header>
+          <img width="150px" alt="Business Trips" src="/images/logo.png"/>
+          <form onSubmit={redirectToMyTrips}>
+              <button type="submit">My trips</button>
+          </form>
+      </header>
   );
 }
 

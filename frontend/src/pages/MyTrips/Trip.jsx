@@ -17,9 +17,9 @@ const Trip = ({ trip, onDeleteTrip }) => {
                     </div>
                     <p>{trip.description}</p>
                     <div>
-                        <button type="button" onClick={() => onDeleteTrip(trip.id)}>
-                            Delete from list
-                        </button>
+                        <form onSubmit={(e) => {e.preventDefault(); onDeleteTrip(trip.id);}}>
+                            <button type="submit">Delete from list</button>
+                        </form>
                     </div>
                 </figcaption>
             </figure>

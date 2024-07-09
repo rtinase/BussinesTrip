@@ -29,10 +29,14 @@ export default function MyTrips() {
     return (
         <div>
             <h1>My Trips Page</h1>
-            <button onClick={() => navigate("/")}>Back home</button>
-            <button onClick={handleDeleteAllTrips}>Delete all my trips</button>
+            <form onSubmit={() => navigate("/")}>
+                <button type="submit">Back home</button>
+            </form>
+            <form onSubmit={(e) => {e.preventDefault(); handleDeleteAllTrips();}}>
+                <button type="submit">Delete all my trips</button>
+            </form>
             <section id="products">
-                <TripList trips={trips} onDeleteTrip={handleDeleteTrip} />
+                <TripList trips={trips} onDeleteTrip={handleDeleteTrip}/>
             </section>
         </div>
     );

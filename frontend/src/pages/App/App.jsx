@@ -91,9 +91,9 @@ export default function App() {
             </div>
             <p>{t.description}</p>
             <div>
-              <button type="button" onClick={() => handleAddTripToSelected(t)}>
-                Add to Triplist
-              </button>
+              <form onSubmit={(e) => {e.preventDefault(); handleAddTripToSelected(t);}}>
+                <button type="submit">Add to Triplist</button>
+              </form>
             </div>
           </figcaption>
         </figure>
@@ -102,12 +102,12 @@ export default function App() {
   }
 
   return (
-    <>
-      <div>
-        <Header myTripsFromApp={selectedTrips} />
-        <main>
-          <section id="filters">
-            <label htmlFor="month">Filter by Month:</label>{" "}
+      <>
+        <div>
+          <Header myTripsFromApp={selectedTrips}/>
+          <main>
+            <section id="filters">
+              <label htmlFor="month">Filter by Month:</label>{" "}
             <select id="size">
               <option value="">All months</option>
               <option value="1">January</option>
