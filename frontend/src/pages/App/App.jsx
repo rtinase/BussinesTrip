@@ -3,11 +3,12 @@ import "./App.css";
 import Header from "../../Components/Header";
 import TripList from "./TripList";
 import { fetchAllTrips, fetchAmountOfSelectedTrips, addTripToSelected } from "./AppService";
+import Snackbar from "../../Components/Snackbar";
 
 const selectedTrips = [];
 
 export default function App() {
-  const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [snackbars, setSnackbars] = useState([]);
   const [allTrips, setTrips] = useState([]);
 
   useEffect(() => {
@@ -22,10 +23,11 @@ export default function App() {
     getTrips();
   }, []);
 
-  const showSnackbar = () => {
-    setSnackbarVisible(true);
+  const showSnackbar = (message) => {
+    const id = new Date().getTime();
+    setSnackbars((prevSnackbars) => [...prevSnackbars, { id, message }]);
     setTimeout(() => {
-      setSnackbarVisible(false);
+      setSnackbars((prevSnackbars) => prevSnackbars.filter((snackbar) => snackbar.id !== id));
     }, 2000);
   };
 
@@ -34,9 +36,10 @@ export default function App() {
       const amountOfMyTrips = await fetchAmountOfSelectedTrips();
       console.log(amountOfMyTrips);
       await addTripToSelected(trip, amountOfMyTrips);
-      showSnackbar();
+      showSnackbar(`Trip ${trip.title} added to your list!`);
     } catch (error) {
       console.error("Error adding trip to selected:", error);
+      showSnackbar("Error adding trip to your list.");
     }
   };
 
@@ -56,8 +59,10 @@ export default function App() {
             </section>
             <TripList trips={allTrips} onAddTripToSelected={handleAddTripToSelected} />
           </main>
-          <div id="snackbar" className={`snackbar ${snackbarVisible ? 'show' : ''}`}>
-            Trip added to your list!
+          <div className="snackbar-container">
+            {snackbars.map((snackbar) => (
+                <Snackbar key={snackbar.id} message={snackbar.message} />
+            ))}
           </div>
         </div>
       </>
