@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchTrips, deleteTrip, editTrip } from "./MyTripsService";
+import { deleteTrip, editTrip, deleteAllMyTrips} from "./MyTripsService";
 import TripList from "./TripList";
 import "./MyTrips.css";
 
@@ -34,6 +34,11 @@ const MyTrips = () => {
         } catch (error) {
             console.error("Error updating trip:", error);
         }
+    };
+
+    const handleDeleteAllTrips = async () => {
+        await deleteAllMyTrips();
+        setTrips([]);
     };
 
     return (
