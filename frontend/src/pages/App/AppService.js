@@ -22,9 +22,9 @@ export const fetchAmountOfSelectedTrips = async () => {
     }
 };
 
-export const addTripToSelected = async (trip, amountOfMyTrips) => {
+export const addTripToSelected = async (trip, id) => {
     const tripData = {
-        id: amountOfMyTrips + 1,
+        id: id,
         imageId: trip.id,
         title: trip.title,
         description: trip.description,
@@ -37,6 +37,18 @@ export const addTripToSelected = async (trip, amountOfMyTrips) => {
         console.log('Trip added successfully:', response.data);
     } catch (error) {
         console.error('Error adding trip:', error);
+        throw error;
+    }
+};
+
+
+
+export const fetchAllIds = async () => {
+    try {
+        const response = await axios.get("http://localhost:3001/my-trips/ids");
+        return response.data.tripIds;
+    } catch (error) {
+        console.error("Error fetching trip ids:", error);
         throw error;
     }
 };

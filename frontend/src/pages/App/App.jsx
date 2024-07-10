@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Header from "../../Components/Header";
 import TripList from "./TripList";
-import { fetchAllTrips, fetchAmountOfSelectedTrips, addTripToSelected } from "./AppService";
+import { fetchAllTrips, fetchAmountOfSelectedTrips, addTripToSelected, fetchAllIds } from "./AppService";
 import Snackbar from "../../Components/Snackbar";
 
 const selectedTrips = [];
@@ -33,9 +33,9 @@ export default function App() {
 
   const handleAddTripToSelected = async (trip) => {
     try {
-      const amountOfMyTrips = await fetchAmountOfSelectedTrips();
-      console.log(amountOfMyTrips);
-      await addTripToSelected(trip, amountOfMyTrips);
+      const newId = await generateUniqueId();
+      
+      await addTripToSelected(trip, newId);
       showSnackbar(`Trip ${trip.title} added to your list!`);
     } catch (error) {
       console.error("Error adding trip to selected:", error);
@@ -43,6 +43,18 @@ export default function App() {
     }
   };
 
+  async function generateUniqueId() {
+    const amountOfMyTrips = await fetchAmountOfSelectedTrips();
+    const allIds = await fetchAllIds();
+
+    let newId = amountOfMyTrips + 1;
+    while (allIds.includes(newId)) {
+      newId++;
+    }
+
+    return newId;
+  }
+  
   return (
       <>
         <div>

@@ -33,6 +33,26 @@ app.get('/my-trips', (req, res) => {
     });
 });
 
+app.get('/my-trips/ids', (req, res) => {
+    fs.readFile(MyTripsFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading trips file:', err);
+            return res.status(500).send('Error reading trips file');
+        }
+
+        try {
+            const myTrips = JSON.parse(data).myTrips;
+            const tripIds = myTrips.map(trip => trip.id);
+            console.log(`GET request /my-trips/ids. The IDs are ${tripIds.join(', ')} and type is ${typeof (tripIds)}`);
+            res.send({ tripIds: tripIds });
+        } catch (parseError) {
+            console.error('Error parsing trips file:', parseError);
+            res.status(500).send('Error parsing trips file');
+        }
+    });
+});
+
+
 app.get('/my-trips/amount', (req, res) => {
     fs.readFile(MyTripsFilePath, 'utf8', (err, data) => {
         if (err) {
