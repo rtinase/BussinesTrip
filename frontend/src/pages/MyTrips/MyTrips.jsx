@@ -1,30 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { fetchTrips, deleteTrip, editTrip } from "./MyTripsService";
 import TripList from "./TripList";
-import { fetchTrips, deleteTrip, deleteAllMyTrips } from "./MyTripsService";
 import "./MyTrips.css";
 
-export default function MyTrips() {
-    const navigate = useNavigate();
+const MyTrips = () => {
     const [trips, setTrips] = useState([]);
 
     useEffect(() => {
-        const getTrips = async () => {
-            const tripsData = await fetchTrips();
-            setTrips(tripsData);
+        const fetchTrips = async () => {
+            try {
+                const myTrips = await fetchTrips();
+                setTrips(myTrips);
+            } catch (error) {
+                console.error("Error fetching trips:", error);
+            }
         };
-
-        getTrips();
+        fetchTrips();
     }, []);
 
     const handleDeleteTrip = async (id) => {
-        const newTrips = await deleteTrip(id, trips);
-        setTrips(newTrips);
+        try {
+            await deleteTrip(id);
+            setTrips(trips.filter(trip => trip.id !== id));
+        } catch (error) {
+            console.error("Error deleting trip:", error);
+        }
     };
 
-    const handleDeleteAllTrips = async () => {
-        await deleteAllMyTrips();
-        setTrips([]);
+    const handleEditTrip = async (editedTrip) => {
+        try {
+            await editTrip(editedTrip);
+            setTrips(trips.map(trip => trip.id === editedTrip.id ? editedTrip : trip));
+        } catch (error) {
+            console.error("Error updating trip:", error);
+        }
     };
 
     return (
@@ -44,11 +53,15 @@ export default function MyTrips() {
                     }}>
                         <button type="submit">Delete all my trips</button>
                     </form>
-                    </div>
+                </div>
             </header>
-            <div className="list">
-                <TripList trips={trips} onDeleteTrip={handleDeleteTrip}/>
+            <div className="my-trips">
+                <TripList trips={trips} onDeleteTrip={handleDeleteTrip} onEditTrip={handleEditTrip}/>
             </div>
         </div>
-);
-}
+
+    )
+        ;
+};
+
+export default MyTrips;

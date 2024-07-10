@@ -46,19 +46,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.trip-row {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    margin: 10px 0;
-    border-radius: 8px;
-    background-color: #333; /* Dark background color to simulate black paper */
-    color: #fff; /* White text color for contrast */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), /* Soft outer shadow */
-    0 1px 3px rgba(0, 0, 0, 0.08); /* Slightly darker inner shadow */
-    transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition for hover effect */
-}
-
 .trip-header {
     background-color: #444; /* Slightly lighter for differentiation */
     font-weight: bold;
@@ -68,43 +55,53 @@
     text-transform: uppercase; /* Uppercase text for header */
 }
 
-.trip-row:hover {
-    transform: translateY(-2px); 
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 
-    0 4px 6px rgba(0, 0, 0, 0.08); 
+.trip-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.trip-row span {
+.trip-row:hover {
+    background-color: #e0e0e0;
+}
+
+.trip-id, .trip-title, .trip-date, .trip-actions {
     flex: 1;
     padding: 0 10px;
 }
 
-.trip-id {
-    width: 50px;
-}
-
-.trip-title {
-    flex: 2;
-}
-
-.trip-date {
+.trip-input {
     flex: 1;
+    padding: 5px;
+    margin: 0 10px;
 }
 
 .trip-actions {
-    width: 50px;
-    text-align: center;
+    display: flex;
+    gap: 10px;
 }
 
-.delete-btn {
-    background: none;
+.delete-btn, .edit-btn, .save-btn, .cancel-btn {
+    background-color: #f44336;
+    color: #fff;
     border: none;
-    color: red;
-    font-size: 1.2em;
+    padding: 10px 15px;
     cursor: pointer;
-    transition: transform 0.2s;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
-.delete-btn:hover {
-    transform: scale(1.2);
+.delete-btn:hover, .edit-btn:hover, .save-btn:hover, .cancel-btn:hover {
+    background-color: #d32f2f;
 }
+
+.trip-header {
+    background-color: #3f51b5;
+    color: #fff;
+    font-weight: bold;
+}
+
+
