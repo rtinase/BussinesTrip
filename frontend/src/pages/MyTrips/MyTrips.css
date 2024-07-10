@@ -1,9 +1,62 @@
-.list{
-    display:flex;
-    border: black solid 1px;
-    flex-direction: column;
-    justify-content: center;
+.trip-list {
+    margin-left: 15vw;
+    margin-top:10vh;
+    width: 70vw;
+    padding: 0;
+    list-style: none;
+}
+
+.trip-row {
+    width: 100%;
+    display: flex;
     align-items: center;
-    width: 80vw;
-    margin-left: 10vw;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    background-color: #333; 
+    color: #fff; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
+    0 1px 3px rgba(0, 0, 0, 0.08); 
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.trip-row:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1), 
+    0 4px 6px rgba(0, 0, 0, 0.08); 
+}
+
+.trip-row span {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.trip-id {
+    width: 50px;
+}
+
+.trip-title {
+    flex: 2;
+}
+
+.trip-date {
+    flex: 1;
+}
+
+.trip-actions {
+    width: 50px;
+    text-align: center;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
 }
