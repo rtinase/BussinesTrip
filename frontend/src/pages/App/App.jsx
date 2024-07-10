@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Footer from "../../Components/Footer";
 import Header from "../../Components/Header";
 import axios from "axios";
 
@@ -121,7 +120,7 @@ export default function App() {
           Trip added to your list!
         </div>
       </div>
-      <Footer />
+      
     </>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TripList from "./TripList";
 import { fetchTrips, deleteTrip, deleteAllMyTrips } from "./MyTripsService";
+import "./MyTrips.css";
 
 export default function MyTrips() {
     const navigate = useNavigate();
@@ -35,9 +36,9 @@ export default function MyTrips() {
             <form onSubmit={(e) => {e.preventDefault(); handleDeleteAllTrips();}}>
                 <button type="submit">Delete all my trips</button>
             </form>
-            <section id="products">
+            <div className="list">
                 <TripList trips={trips} onDeleteTrip={handleDeleteTrip}/>
-            </section>
+            </div>
         </div>
     );
 }

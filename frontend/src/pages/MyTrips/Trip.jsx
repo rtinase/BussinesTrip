@@ -2,11 +2,8 @@ import React from "react";
 
 const Trip = ({ trip, onDeleteTrip }) => {
     return (
-        <div className="product">
+        <div className="trip">
             <figure>
-                <div>
-                    <img src={"images/items/" + trip.imageId + ".jpg"} alt="name" />
-                </div>
                 <figcaption>
                     <div>
                         <span>ID: {trip.id}</span>
