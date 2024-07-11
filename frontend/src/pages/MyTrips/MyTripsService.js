@@ -10,15 +10,13 @@ export const fetchMyTrips = async () => {
     }
 };
 
-export const deleteTrip = async (id, trips) => {
+export const deleteTrip = async (id) => {
     try {
         console.log("The id of deleted trip is ", id);
         await axios.delete(`http://localhost:3001/my-trips/trip/${id}`);
         console.log("delete request is good");
-        return trips.filter(trip => trip.id !== id);
     } catch (error) {
         console.error("Error deleting trip:", error);
-        return trips;
     }
 }; 
 
