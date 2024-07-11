@@ -33,3 +33,26 @@ npm start
 Now everything works!
 
 
+## General Information 
+
+This website was not hosted, because the node.js module needs to be installed onto cloud hosting (what costs money)
+
+## Website Functionality Summary
+
+Trip Management:
+View All Trips: Browse through a list of available trips.
+Add Trip to List: Add trips to a personal list of selected trips.
+View Selected Trips: See a list of selected trips with detailed information.
+
+Trip Interaction:
+Delete Trip: Remove a trip from the selected trips list.
+Edit Trip: Modify trip details including title, start date, end date.
+Save Changes: Save edited trip details to update the trip list.
+Cancel Edit: Discard changes made during the edit process.
+
+User Interface:
+Snackbar Notifications: Receive notifications for actions like adding trips to the list.
+
+Additional Features:
+Back Navigation: Navigate back to the home page.
+Delete All Trips: Delete all trips from the selected trips list in one go.
