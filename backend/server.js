@@ -152,7 +152,7 @@ app.post('/my-trips/edit', (req, res) => {
 
             tripsData.myTrips[index] = updatedTrip;
 
-            fs.writeFile(AllTripsFilePath, JSON.stringify(tripsData), err => {
+            fs.writeFile(MyTripsFilePath, JSON.stringify(tripsData), err => {
                 if (err) {
                     console.error('Error writing to trips file:', err);
                     return res.status(500).send('Error writing to trips file');

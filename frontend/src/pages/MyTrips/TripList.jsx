@@ -13,7 +13,7 @@ const TripList = ({ trips, onDeleteTrip, onEditTrip }) => {
                 <span className="trip-actions">Actions</span>
             </div>
             {trips.map(trip => (
-                <Trip trip={trip} onDeleteTrip={onDeleteTrip} onEditTrip={onEditTrip} />
+                <Trip key={trip.id} trip={trip} onDeleteTrip={onDeleteTrip} onEditTrip={onEditTrip} />
             ))}
         </div>
     );
