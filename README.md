@@ -44,15 +44,15 @@ View All Trips: Browse through a list of available trips. <br/>
 Add Trip to List: Add trips to a personal list of selected trips. <br/>
 View Selected Trips: See a list of selected trips with detailed information. <br/>
 
-Trip Interaction:
-Delete Trip: Remove a trip from the selected trips list.
-Edit Trip: Modify trip details including title, start date, end date.
-Save Changes: Save edited trip details to update the trip list.
-Cancel Edit: Discard changes made during the edit process.
+Trip Interaction: <br/>
+Delete Trip: Remove a trip from the selected trips list. <br/>
+Edit Trip: Modify trip details including title, start date, end date. <br/>
+Save Changes: Save edited trip details to update the trip list. <br/>
+Cancel Edit: Discard changes made during the edit process. <br/>
 
-User Interface:
-Snackbar Notifications: Receive notifications for actions like adding trips to the list.
+User Interface:<br/>
+Snackbar Notifications: Receive notifications for actions like adding trips to the list. <br/>
 
-Additional Features:
-Back Navigation: Navigate back to the home page.
-Delete All Trips: Delete all trips from the selected trips list in one go.
+Additional Features: <br/>
+Back Navigation: Navigate back to the home page. <br/>
+Delete All Trips: Delete all trips from the selected trips list in one go. <br/>
