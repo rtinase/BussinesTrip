@@ -39,10 +39,10 @@ This website was not hosted, because the node.js module needs to be installed on
 
 ## Website Functionality Summary
 
-Trip Management:
-View All Trips: Browse through a list of available trips.
-Add Trip to List: Add trips to a personal list of selected trips.
-View Selected Trips: See a list of selected trips with detailed information.
+Trip Management: <br/>
+View All Trips: Browse through a list of available trips. <br/>
+Add Trip to List: Add trips to a personal list of selected trips. <br/>
+View Selected Trips: See a list of selected trips with detailed information. <br/>
 
 Trip Interaction:
 Delete Trip: Remove a trip from the selected trips list.
