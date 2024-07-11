@@ -60,12 +60,16 @@
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
-    background-color: #f0f0f0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #333; 
+    color: #fff; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 
+    0 1px 3px rgba(0, 0, 0, 0.08); 
+    transition: transform 0.2s, box-shadow 0.2s; 
 }
 
 .trip-row:hover {
-    background-color: #e0e0e0;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1),
+    0 4px 6px rgba(0, 0, 0, 0.08);
 }
 
 .trip-id, .trip-title, .trip-date, .trip-actions {
@@ -85,7 +89,7 @@
 }
 
 .delete-btn, .edit-btn, .save-btn, .cancel-btn {
-    background-color: #f44336;
+    background-color: #2a2339;
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -95,13 +99,8 @@
 }
 
 .delete-btn:hover, .edit-btn:hover, .save-btn:hover, .cancel-btn:hover {
-    background-color: #d32f2f;
+    background-color: #423b53;
 }
 
-.trip-header {
-    background-color: #3f51b5;
-    color: #fff;
-    font-weight: bold;
-}
 
 

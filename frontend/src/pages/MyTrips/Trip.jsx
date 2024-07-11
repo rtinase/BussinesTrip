@@ -86,7 +86,7 @@ const Trip = ({ trip, onDeleteTrip, onEditTrip }) => {
                         <form onSubmit={(e) => { e.preventDefault(); onDeleteTrip(trip.id); }}>
                             <button type="submit" className="delete-btn">🗑️</button>
                         </form>
-                        <button onClick={handleEditClick} className="edit-btn">Edit</button>
+                        <button onClick={handleEditClick} className="edit-btn">✏️</button>
                     </span>
                 </>
             )}
