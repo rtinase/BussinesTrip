@@ -62,13 +62,6 @@ const Trip = ({ trip, onDeleteTrip, onEditTrip }) => {
                         onChange={handleInputChange}
                         className="trip-input"
                     />
-                    <input
-                        type="text"
-                        name="description"
-                        value={editedTrip.description}
-                        onChange={handleInputChange}
-                        className="trip-input"
-                    />
                     <span className="trip-actions">
                         <form onSubmit={handleSaveClick}>
                             <button type="submit" className="save-btn">Save</button>

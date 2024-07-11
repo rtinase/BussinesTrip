@@ -132,6 +132,41 @@ app.post('/my-trips/add', (req, res) => {
     });
 });
 
+
+app.post('/my-trips/edit', (req, res) => {
+    const updatedTrip = req.body;
+
+    fs.readFile(MyTripsFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading trips file:', err);
+            return res.status(500).send('Error reading trips file');
+        }
+
+        try {
+            const tripsData = JSON.parse(data);
+            const index = tripsData.myTrips.findIndex(trip => trip.id === updatedTrip.id);
+
+            if (index === -1) {
+                return res.status(404).send('Trip not found');
+            }
+
+            tripsData.myTrips[index] = updatedTrip;
+
+            fs.writeFile(AllTripsFilePath, JSON.stringify(tripsData), err => {
+                if (err) {
+                    console.error('Error writing to trips file:', err);
+                    return res.status(500).send('Error writing to trips file');
+                }
+                res.send({ success: true });
+            });
+        } catch (parseError) {
+            console.error('Error parsing trips file:', parseError);
+            res.status(500).send('Error parsing trips file');
+        }
+    });
+});
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}/trips and on http://localhost:${PORT}/selected-trips`);
 });

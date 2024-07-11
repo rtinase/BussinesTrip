@@ -32,9 +32,11 @@ export const deleteAllMyTrips = async () => {
 
 export const editTrip = async (editedTrip) => {
     try {
-        await axios.put(`http://localhost:3001/my-trips/trip/${editedTrip.id}`, editedTrip);
+        await axios.post(`http://localhost:3001/my-trips/edit`, editedTrip);
+        console.log('Trip updated successfully');
+        // Optionally handle success response
     } catch (error) {
-        console.error("Error updating trip:", error);
+        console.error('Error updating trip:', error);
         throw error;
     }
 };
