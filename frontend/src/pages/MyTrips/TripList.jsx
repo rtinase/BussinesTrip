@@ -2,7 +2,7 @@ import React from "react";
 import Trip from "./Trip";
 import "./MyTrips.css";
 
-const TripList = ({ trips, onDeleteTrip }) => {
+const TripList = ({ trips, onDeleteTrip, onEditTrip }) => {
     return (
         <div className="trip-list">
             <div className="trip-row trip-header">
@@ -13,7 +13,7 @@ const TripList = ({ trips, onDeleteTrip }) => {
                 <span className="trip-actions">Actions</span>
             </div>
             {trips.map(trip => (
-                <Trip key={trip.id} trip={trip} onDeleteTrip={onDeleteTrip} />
+                <Trip trip={trip} onDeleteTrip={onDeleteTrip} onEditTrip={onEditTrip} />
             ))}
         </div>
     );

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { deleteTrip, editTrip, deleteAllMyTrips} from "./MyTripsService";
+import {deleteTrip, editTrip, deleteAllMyTrips, fetchMyTrips} from "./MyTripsService";
 import TripList from "./TripList";
 import "./MyTrips.css";
+import { useNavigate} from "react-router-dom";
 
 const MyTrips = () => {
     const [trips, setTrips] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTrips = async () => {
             try {
-                const myTrips = await fetchTrips();
+                const myTrips = await fetchMyTrips();
                 setTrips(myTrips);
             } catch (error) {
                 console.error("Error fetching trips:", error);
